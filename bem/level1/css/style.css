@@ -1,0 +1,51 @@
+/* Block */
+
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    padding: 12px 48px;
+    border-radius: 50px;
+    cursor: pointer;
+    min-width: 120px;
+    text-align: center;
+    transition: opacity .2s ease;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.btn + .btn {
+    margin-left: 12px;
+}
+
+/* Modifier */
+
+.btn--small {
+    padding: 8px 40px;
+}
+
+.btn--large {
+    padding: 16px 52px;
+}
+
+.btn--success {
+    background-color: #71be34;
+}
+
+.btn--warning {
+    background-color: #ffb702;
+}
+
+.btn--danger {
+    background-color: #ff623d;
+}
+
+.btn--disabled {
+    opacity: 0.5 !important;
+    cursor: default;
+}
