@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="HexHro">
+    <meta name="Description" content="Template Tabs">
+    <title>Template Tabs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary-color: rgba(221, 109, 144, 0.6);
+            --foreign-color: rgba(221, 109, 144, 1);
+            --active: #e25a85;
+            --text-color: #5c565a;
+            --hover-color: rgba(221, 109, 144, 0.2);
+        }
+
+        html {
+            font-size: 62.5%;
+            line-height: 1.6rem;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: auto;
+            max-width: 612px;
+        }
+
+        .tab-list {
+            display: flex;
+            position: relative;
+            padding-left: 0;
+            margin: 32px 0;
+            list-style: none;
+        }
+
+        .tab-item {
+            display: flex;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            min-width: 137px;
+            padding: 12px 8px;
+            color: var(--primary-color);
+            border-bottom: 5px solid transparent;
+            cursor: pointer;
+            font-size: 2rem;
+            transition: all 0.5s ease;
+        }
+
+        .tab-item:hover {
+            background-color: var(--hover-color);
+            color: #5c565a;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            border-bottom: 5px solid var(--primary-color);
+        }
+
+        .tab-item.active {
+            color: #000;
+            background-color: transparent;
+            border-bottom: 5px solid transparent;
+        }
+
+        .tab-item i {
+            margin-right: 12px;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .tab-item:hover i {
+            color: var(--foreign-color);
+        }
+
+        .tab-item.active i {
+            color: var(--active);
+        }
+
+        .line {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 5px;
+            background-color: var(--active);
+            border-radius: 3px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-content-container {
+            margin: 0 2px;
+        }
+
+        .tab-content {
+            display: none;
+            font-size: 2rem;
+        }
+
+        .header-content {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .body-content {
+            margin: 16px 0;
+            line-height: 2.8rem;
+            font-weight: 400;
+            color: #1f1f1f;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <ul class="tab-list">
+            <li class="tab-item active"><i class="fa-solid fa-code"></i>React</li>
+            <li class="tab-item"><i class="fa-solid fa-gear"></i>Angular</li>
+            <li class="tab-item"><i class="fa-solid fa-circle-plus"></i>Ember</li>
+            <li class="tab-item"><i class="fa-solid fa-pen-nib"></i>Design</li>
+            <div class="line"></div>
+        </ul>
+        <div class="tab-content-container">
+            <div class="tab-content active">
+                <h3 class="header-content">React</h3>
+                <p class="body-content">
+                    React makes it painless to create interactive UIs. Design simple views for each state in your
+                    application, and React will efficiently update and render just the right components when your data
+                    changes.
+                </p>
+            </div>
+            <div class="tab-content">
+                <h3 class="header-content">Angular</h3>
+                <p class="body-content">
+                    Angular is a development platform, built on TypeScript. As a platform, Angular includes: A
+                    component-based framework for building scalable web applications. A collection of well-integrated
+                    libraries that cover a wide variety of features, including routing, forms
+                </p>
+            </div>
+            <div class="tab-content">
+                <h3 class="header-content">Ember</h3>
+                <p class="body-content">
+                    The story is about Ember, a post-apocalyptic underground city threatened by aging infrastructure and
+                    corruption. The young protagonist, Lina Mayfleet, and her friend, Doon Harrow (the second
+                    protagonist),
+                    follow clues left behind by the original builders of the City of Ember, to safety in the outside
+                    world.
+                </p>
+            </div>
+            <div class="tab-content">
+                <h3 class="header-content">Design</h3>
+                <p class="body-content">
+                    About Us Page. 236 inspirational designs, illustrations, and graphic elements from the world's best
+                    designers. Want more inspiration?
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const $ = document.querySelector.bind(document);
+        const $$ = document.querySelectorAll.bind(document);
+
+        const tabs = $$(".tab-item");
+        const contents = $$(".tab-content");
+
+        const tabActive = $(".tab-item.active");
+
+
+        const line = $(".tab-list .line");
+
+        requestIdleCallback(function () {
+            line.style.left = tabActive.offsetLeft + "px";
+            line.style.width = tabActive.offsetWidth + "px";
+        });
+
+        tabs.forEach((tab, index) => {
+            const pane = contents[index];
+
+            tab.onclick = function () {
+                $(".tab-item.active").classList.remove("active");
+                $(".tab-content.active").classList.remove("active");
+
+                line.style.left = this.offsetLeft + "px";
+                line.style.width = this.offsetWidth + "px";
+
+                this.classList.add("active");
+                pane.classList.add("active");
+            };
+        });
+    </script>
+</body>
+
+</html>
