@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="HexHro">
+    <meta name="description" content="Music Player">
+    <title>Music Player</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/css/main.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="player">
+            <h3 class="song-name">Ai muốn nghe không?</h3>
+            <div class="cd">
+                <div class="cd-thumb" style="background-image: url('./assets/img/ai-muon-nghe-khong.jpg');"></div>
+            </div>
+            <div class="controls">
+                <span class="repeat"><i class="fa-solid fa-arrow-rotate-right"></i></span>
+                <span class="prev"><i class="fa-solid fa-backward-step"></i></span>
+                <span class="play">
+                    <i class="fa-solid fa-play icon-play"></i>
+                    <i class="fa-solid fa-pause icon-pause"></i>
+                </span>
+                <span class="next"><i class="fa-solid fa-forward-step"></i></span>
+                <span class="shuffle"><i class="fa-solid fa-shuffle"></i></span>
+            </div>
+
+            <div class="progress">
+                <span class="time-elapsed">0:00</span>
+                <input id="progress" type="range" value="0" step="1" min="0" max="100">
+                <span class="duration"></span>
+            </div>
+            <audio id="audio" src=""></audio>
+        </div>
+        <div class="playlists">
+        </div>
+    </div>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
