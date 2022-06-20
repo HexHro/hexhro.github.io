@@ -66,6 +66,8 @@ const app = {
       image: './assets/img/wellerman.jpg',
     },
   ],
+
+  // New array for play shuffle
   newPlaylists: [],
   render: function () {
     const html = this.songs.map((song, index) => {
@@ -87,6 +89,8 @@ const app = {
     });
 
     $('.playlists').innerHTML = html.join('');
+
+    // Handle for play shuffle
     if (this.songs.length <= this.currentIndex) {
       this.newPlaylists.push(0);
     } else {
@@ -104,6 +108,7 @@ const app = {
     const _this = this;
     const cdWidth = cd.offsetWidth;
 
+    // Rotate a CD while playing music
     const cdThumbAnimate = cdThumb.animate(
       [
         {
@@ -123,7 +128,7 @@ const app = {
       duration.innerText = audioDuration;
     };
 
-    // shrink CD on scroll playlists
+    // Shrink CD on scroll playlists
     $('.app-container').onscroll = function () {
       const scrollTop = this.scrollTop;
       const newCdWidth = cdWidth - scrollTop;
@@ -132,28 +137,31 @@ const app = {
       cd.style.opacity = newCdWidth / cdWidth;
     };
 
-    // play music
     playBtn.onclick = function () {
+      if (_this.isShuffle && _this.songs.length === _this.newPlaylists.length) {
+        _this.newPlaylists = [];
+      }
+
       if (_this.isPlaying) {
         audio.pause();
       } else {
         audio.play();
       }
     };
-    // when play song
+
     audio.onplay = function () {
       _this.isPlaying = true;
       player.classList.add('playing');
       cdThumbAnimate.play();
     };
 
-    // when pausing song
     audio.onpause = function () {
       _this.isPlaying = false;
       player.classList.remove('playing');
       cdThumbAnimate.pause();
     };
 
+    // Update real-time for time Elapsed and progress Bar while playing music
     audio.ontimeupdate = function () {
       if (audio.duration) {
         timeElapsed.innerText = _this.formatTime(audio.currentTime);
@@ -169,29 +177,11 @@ const app = {
     };
 
     prevBtn.onclick = function () {
-      if (_this.isShuffle) {
-        _this.playShuffle();
-      } else {
-        _this.prevSong();
-      }
-
-      if (!(_this.currentIndex < 0)) {
-        _this.toggleSongActive();
-        _this.scrollToActiveSong();
-        audio.play();
-      }
+      _this.handlePrevOrNext(true);
     };
 
-    nextBtn.onclick = function (e) {
-      if (_this.isShuffle) {
-        _this.playShuffle();
-      } else {
-        _this.nextSong();
-      }
-
-      _this.toggleSongActive();
-      _this.scrollToActiveSong();
-      audio.play();
+    nextBtn.onclick = function () {
+      _this.handlePrevOrNext(false);
     };
 
     shuffleBtn.onclick = function () {
@@ -204,9 +194,7 @@ const app = {
       if (_this.isRepeat) {
         audio.play();
       } else {
-        if (_this.isShuffle) {
-          nextBtn.click();
-        } else if (_this.currentIndex !== _this.songs.length - 1) {
+        if (!(_this.newPlaylists.length >= _this.songs.length)) {
           nextBtn.click();
         }
       }
@@ -224,10 +212,11 @@ const app = {
 
       if (songElement || option) {
         if (!option) {
+          if (_this.isShuffle) {
+            _this.newPlaylists = [];
+          }
           _this.currentIndex = Number(songElement.dataset.index);
-          _this.toggleSongActive();
-          _this.loadCurrentSong();
-          audio.play();
+          _this.handlePlay();
         } else {
           alert('option :)');
         }
@@ -269,6 +258,10 @@ const app = {
       this.setConfig('currentIndex', this.currentIndex);
     }
 
+    if (this.checkEqualSong()) {
+      this.newPlaylists = [];
+    }
+
     this.newPlaylists.push(this.currentIndex);
   },
   scrollToActiveSong: function () {
@@ -279,34 +272,93 @@ const app = {
       });
     }, 300);
   },
+  checkEqualSong: function () {
+    return this.songs.length === this.newPlaylists.length;
+  },
+  checkSong: function (newIndex, firstOrLastIndex) {
+    if (this.checkEqualSong()) {
+      this.newPlaylists = [];
+      this.newPlaylists.push(this.currentIndex);
+    }
+
+    const isExist = this.newPlaylists.includes(newIndex);
+    const isLastSong = newIndex === firstOrLastIndex;
+
+    if (this.songs.length - this.newPlaylists.length === 1 && isLastSong) {
+      return false;
+    } else {
+      return isExist || isLastSong;
+    }
+  },
   formatTime: function (seconds) {
     return new Date(seconds.toFixed(0) * 1000).toISOString().substring(15, 19);
+  },
+  handlePlay: function () {
+    this.loadCurrentSong();
+    this.toggleSongActive();
+    this.scrollToActiveSong();
+    audio.play();
+  },
+  handlePrevOrNext: function (isPrev) {
+    let isFirstSong = this.currentIndex <= 0;
+    let isLastSong = this.currentIndex >= this.songs.length - 1;
+    const isEqualLength = this.checkEqualSong();
+    let isFirstOrNextSong;
+
+    if (isPrev) {
+      isFirstOrNextSong = isFirstSong;
+      isFirstSong = isLastSong;
+      isLastSong = isFirstOrNextSong;
+    }
+
+    if (this.isShuffle) {
+      if (isLastSong || !isEqualLength || isFirstSong) {
+        if (!isEqualLength || !isLastSong || isFirstSong) {
+          this.playShuffle();
+          this.handlePlay();
+        }
+      }
+    } else {
+      if (!isLastSong) {
+        if (isPrev) {
+          this.prevSong();
+        } else {
+          this.nextSong();
+        }
+        this.handlePlay();
+      }
+    }
   },
   prevSong: function () {
     if (!(this.currentIndex <= 0)) {
       this.currentIndex--;
-      this.loadCurrentSong();
     }
   },
   nextSong: function () {
     if (!(this.currentIndex >= this.songs.length - 1)) {
       this.currentIndex++;
-      this.loadCurrentSong();
     }
   },
   playShuffle: function () {
-    if (this.songs.length === this.newPlaylists.length) {
-      this.newPlaylists = [];
-    }
-
     let newIndex;
+    let isNotPass;
+    const length = this.songs.length;
+    const firstIndex = 0;
+    const lastIndex = length - 1;
 
     do {
-      newIndex = Math.floor(Math.random() * this.songs.length);
-    } while (this.newPlaylists.includes(newIndex));
+      newIndex = Math.floor(Math.random() * length);
+      if (
+        firstIndex === this.newPlaylists[firstIndex] ||
+        lastIndex !== this.newPlaylists[firstIndex]
+      ) {
+        isNotPass = this.checkSong(newIndex, lastIndex);
+      } else {
+        isNotPass = this.checkSong(newIndex, firstIndex);
+      }
+    } while (isNotPass);
 
     this.currentIndex = newIndex;
-    this.loadCurrentSong();
   },
   start: function () {
     // Assign config to app

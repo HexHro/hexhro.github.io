@@ -5,15 +5,15 @@
 }
 
 * {
+    box-sizing: border-box;
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
 }
 
 html {
+    font-family: 'Lexend', sans-serif;
     font-size: 62.5%;
     line-height: 1.6rem;
-    font-family: 'Lexend', sans-serif;
 }
 
 body {
@@ -22,23 +22,22 @@ body {
 
 .app-container {
     position: relative;
-    margin: 0.5% auto 0;
-    max-width: 420px;
-    box-shadow: 0px 8px 10px 2px rgba(0, 0, 0, 0.1);
-    height: 98vh;
     overflow-y: scroll;
+    max-width: 420px;
+    height: 98vh;
+    margin: 0.5% auto 0;
+    box-shadow: 0px 8px 10px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Player */
 
 .player {
+    position: fixed;
     display: flex;
     flex-direction: column;
-    position: fixed;
     width: 100%;
     max-width: 420px;
     padding: 24px;
-    /* background-color: #fff; */
     background: hsla(12, 89%, 89%, 1);
     background: linear-gradient(90deg, hsla(12, 89%, 89%, 1) 0%, hsla(329, 82%, 76%, 1) 50%, hsla(342, 95%, 78%, 1) 100%);
     background: -moz-linear-gradient(90deg, hsla(12, 89%, 89%, 1) 0%, hsla(329, 82%, 76%, 1) 50%, hsla(342, 95%, 78%, 1) 100%);
@@ -58,32 +57,33 @@ body {
 }
 
 .player .song-name {
-    align-self: center;
-    font-size: 1.8rem;
-    font-weight: 500;
-    margin-bottom: 12px;
-    line-height: 2rem;
-    height: 2rem;
-    overflow: hidden;
     display: -webkit-box;
+    align-self: center;
+    overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+    height: 2.2rem;
+    margin-bottom: 12px;
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 2.2rem;
+
 }
 
 .cd {
     align-self: center;
     width: 200px;
-    max-height: 200px;
     max-width: 200px;
+    max-height: 200px;
 }
 
 .cd .cd-thumb {
     padding-top: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: var(--bg-color);
     border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-color: var(--bg-color);
+    background-repeat: no-repeat;
 }
 
 .controls {
@@ -96,9 +96,9 @@ body {
 }
 
 .controls span {
-    font-size: 1.8rem;
     padding: 18px;
     color: #8784b7;
+    font-size: 1.8rem;
 }
 
 .controls .repeat.active {
@@ -113,21 +113,21 @@ body {
     bottom: 8.5px;
     width: 5px;
     height: 5px;
-    background-color: var(--primary-color);
     border-radius: 50%;
+    background-color: var(--primary-color);
 }
 
 .controls .play {
     --size: 50px;
+    height: var(--size);
+    min-width: var(--size);
+    padding: 0;
+    border-radius: 50%;
+    background-color: var(--primary-color);
     color: #fff;
     font-size: 2.6rem;
-    padding: 0;
-    min-width: var(--size);
-    height: var(--size);
     line-height: var(--size);
     text-align: center;
-    background-color: var(--primary-color);
-    border-radius: 50%;
     box-shadow: 0 4px 6px 2px rgba(239, 58, 122, 0.2);
 }
 
@@ -147,8 +147,8 @@ body {
     bottom: 8.5px;
     width: 5px;
     height: 5px;
-    background-color: var(--primary-color);
     border-radius: 50%;
+    background-color: var(--primary-color);
 }
 
 .progress {
@@ -166,16 +166,16 @@ body {
 
 #progress {
     -webkit-appearance: none;
+    overflow: hidden;
     width: 297px;
     height: 6px;
-    background: #d3d3d3;
-    border-radius: 5px;
     margin: 0 12px;
+    border-radius: 5px;
+    background: #d3d3d3;
     outline: none;
     opacity: 0.7;
     -webkit-transition: 0.2s;
     transition: opacity 0.2s;
-    overflow: hidden;
 }
 
 #progress::-webkit-slider-thumb {
@@ -183,9 +183,9 @@ body {
     appearance: none;
     width: 6px;
     height: 12px;
+    border-radius: 3px;
     background-color: var(--primary-color);
     box-shadow: -297px 0 0 297px var(--primary-color);
-    border-radius: 3px;
 }
 
 /* Playlists */
@@ -193,17 +193,17 @@ body {
 .playlists {
     display: flex;
     flex-direction: column;
-    margin-top: 380px;
     padding: 8px;
+    margin-top: 380px;
 }
 
 .playlists .song {
     display: flex;
     align-items: center;
     padding: 12px;
-    background-color: #fff;
-    border-radius: 3px;
     margin: 4px 0;
+    border-radius: 3px;
+    background-color: #fff;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -214,12 +214,12 @@ body {
 .playlists .thumb {
     min-width: 48px;
     height: 48px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: var(--bg-color);
-    border-radius: 50%;
     margin: 0 4px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-color: var(--bg-color);
+    background-repeat: no-repeat;
 }
 
 .playlists .info {
@@ -229,27 +229,27 @@ body {
 }
 
 .playlists .song-name {
-    font-size: 1.8rem;
-    font-weight: 500;
-    line-height: 2rem;
-    height: 2rem;
-    overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+    overflow: hidden;
+    height: 2.2rem;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    font-weight: 500;
 }
 
 .playlists .artist {
     margin-top: 8px;
+    color: var(--text-color);
     font-size: 1.2rem;
     font-weight: 400;
-    color: var(--text-color);
 }
 
 .playlists .option {
+    padding-right: 4px;
     font-size: 2rem;
     text-align: right;
-    padding-right: 4px;
 }
 
 .playlists .option>i {
